@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//import fetchFirst from "./Fetch";
 
 // https://reactjs.org/docs/state-and-lifecycle.html
 
@@ -167,12 +168,39 @@ function FormattedDate(props) {
     document.getElementById('root')
   );
 */
+
+class Application extends React.Component {
+  callApi(){
+    // Github fetch library : https://github.com/github/fetch
+    // Call the API page
+    fetch('https://i0gk1xw7yj.execute-api.us-west-2.amazonaws.com/prod/test')
+    .then((result) => {
+      // Get the result
+      // If we want text, call result.text()
+      return result.json();
+    }).then((jsonResult) => {
+      // Do something with the result
+      console.log(jsonResult);
+    })
+  }
+  
+  render() {
+    return <div>
+      <button onClick={() => this.callApi()}>
+        Click here to call API
+      </button>
+    </div>;
+  }
+}
+
+
   function App() {
     return (
       <div>
         <Calculator />
         <Clock />
         <Toggle />
+        <Application />
       </div>
     );
   }
